@@ -4,6 +4,10 @@ namespace aoc2016
 {
     public class day3
     {
+        private static bool isValidTriangle(int[] triangle)
+        {
+            return (triangle[0] + triangle[1] > triangle[2] && triangle[1] + triangle[2] > triangle[0] && triangle[0] + triangle[2] > triangle[1]);
+        }
         public static void Main(string[] args)
         {
             string[] triangles = System.IO.File.ReadAllLines(@"C:\home\projects\aoc-2016\day3\input.txt");
@@ -16,7 +20,9 @@ namespace aoc2016
                 int sideB = Int32.Parse(triangle.Substring(5, 5));
                 int sideC = Int32.Parse(triangle.Substring(10, 5));
 
-                if (sideA + sideB > sideC && sideB + sideC > sideA && sideA + sideC > sideB)
+                int[] maybeTriangle = new int[3] {sideA, sideB, sideC};
+
+                if (isValidTriangle(maybeTriangle))
                 {
                     counterA++;
                 }
@@ -41,7 +47,7 @@ namespace aoc2016
 
                     if (sideCount == 3)
                     {
-                        if (vertTriangle[0] + vertTriangle[1] > vertTriangle[2] && vertTriangle[0] + vertTriangle[2] > vertTriangle[1] && vertTriangle[2] + vertTriangle[1] > vertTriangle[0])
+                        if (isValidTriangle(vertTriangle))
                         {
                             counterB++;
                         }
