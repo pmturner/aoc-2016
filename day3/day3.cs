@@ -13,7 +13,7 @@ namespace aoc2016
             string[] triangles = System.IO.File.ReadAllLines(@"C:\home\projects\aoc-2016\day3\input.txt");
             int counterA = 0;
 
-            // Part 1
+            // Part A
             foreach (string triangle in triangles)
             {
                 int sideA = Int32.Parse(triangle.Substring(0, 5));
@@ -31,7 +31,7 @@ namespace aoc2016
 
             Console.WriteLine(counterA);
 
-            // Part 2
+            // Part B
             int counterB = 0;
             int sideCount = 0;
             int[] vertTriangle = new int[3];
