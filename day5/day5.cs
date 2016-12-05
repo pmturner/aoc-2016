@@ -10,7 +10,7 @@ namespace aoc2016
         {
             string doorID = "ffykfhsq";
             string passwordA = "";
-            string[] passwordB = new string[8] {"-","-","-","-","-","-","-","-"};
+            string[] passwordB = {"-","-","-","-","-","-","-","-"};
             int index = 0;
 
             using (MD5 md5Hash = MD5.Create())
