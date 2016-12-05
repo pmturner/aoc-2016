@@ -15,13 +15,14 @@ namespace aoc2016
                 bool isReal = true;
 
                 // dummy values
+                var alphabet = "abcdefghijklmnopqrstuvwxyz";
+                int previousLetterIndex = alphabet.IndexOf("a");
                 int previousCount = 100;
-                decimal previousLetter = 65;
 
                 for (var i = 0; i < 5; i++)
                 {
                     int count = line.Split(checksum[i]).Length - 2;
-                    decimal currentLetter = System.Convert.ToDecimal(checksum[i]);
+                    int currentLetterIndex = alphabet.IndexOf(checksum[i]);
 
                     if (count == 0 || count > previousCount)
                     {
@@ -30,17 +31,15 @@ namespace aoc2016
 
                     if (count == previousCount)
                     {
-                        // not alphabetical order
-                        if (currentLetter < previousLetter)
+                        if (currentLetterIndex < previousLetterIndex)
                         {
                             isReal = false;
                         }
                     }
 
                     previousCount = count;
-                    previousLetter = currentLetter;
+                    previousLetterIndex = currentLetterIndex;
                 }
-
 
                 if (isReal)
                 {
