@@ -13,21 +13,18 @@ namespace aoc2016
 
             for (var i = 0; i < IP.Length; i++)
             {
-                if (IP[i] == previousChar) 
+                if (IP[i] == previousChar && i-2 >= 0 && i+1 < IP.Length) 
                 {
-                    if (i-2 >= 0 && i+1 < IP.Length)
+                    if (IP[i-2] == IP[i+1] && IP[i+1] != IP[i])
                     {   
-                        if (IP[i-2] == IP[i+1] && IP[i+1] != IP[i])
-                        {   
-                            if (isWithinBrackets)
-                            {
-                                isABBA = false;
-                                break;
-                            }
-                            else
-                            {
-                                isABBA = true;
-                            }
+                        if (isWithinBrackets)
+                        {
+                            isABBA = false;
+                            break;
+                        }
+                        else
+                        {
+                            isABBA = true;
                         }
                     }
                 }
@@ -51,8 +48,8 @@ namespace aoc2016
             bool isWithinBrackets = false;
             bool hasABA = false;
             char previousChar = ' ';
-            List<string> possibleSupernetABAs = new List<string>();
-            List<string> possibleHypernetABAs = new List<string>();
+            List<string> possibleSupernetABAList = new List<string>();
+            List<string> possibleHypernetABAList = new List<string>();
 
             for (var i = 0; i < IP.Length; i++)
             {
@@ -64,11 +61,11 @@ namespace aoc2016
 
                         if (isWithinBrackets)
                         {
-                            possibleSupernetABAs.Add(ABA);
+                            possibleSupernetABAList.Add(ABA);
                         }
                         else
                         {
-                            possibleHypernetABAs.Add(ABA);
+                            possibleHypernetABAList.Add(ABA);
                         }
                     }
                 }
@@ -85,13 +82,13 @@ namespace aoc2016
                 previousChar = IP[i];
             }
             
-            if (possibleHypernetABAs.Count > 0 && possibleSupernetABAs.Count > 0)
+            if (possibleHypernetABAList.Count > 0 && possibleSupernetABAList.Count > 0)
             {
-                for (var i = 0; i < possibleHypernetABAs.Count; i++)
+                for (var i = 0; i < possibleHypernetABAList.Count; i++)
                 {
-                    for (var j = 0; j < possibleSupernetABAs.Count; j++)
+                    for (var j = 0; j < possibleSupernetABAList.Count; j++)
                     {
-                        if (possibleHypernetABAs[i][1] == possibleSupernetABAs[j][2] && possibleHypernetABAs[i][2] == possibleSupernetABAs[j][1])
+                        if (possibleHypernetABAList[i][1] == possibleSupernetABAList[j][2] && possibleHypernetABAList[i][2] == possibleSupernetABAList[j][1])
                         {
                             hasABA = true;
                         }
