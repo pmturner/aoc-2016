@@ -5,10 +5,10 @@ namespace aoc2016
 {
     public class day7
     {
-        private static bool IsABBA(string IP)
+        private static bool IsTLS(string IP)
         {
             bool isWithinBrackets = false;
-            bool hasTLS = false;
+            bool isABBA = false;
             char previousChar = ' ';
 
             for (var i = 0; i < IP.Length; i++)
@@ -21,12 +21,12 @@ namespace aoc2016
                         {   
                             if (isWithinBrackets)
                             {
-                                hasTLS = false;
+                                isABBA = false;
                                 break;
                             }
                             else
                             {
-                                hasTLS = true;
+                                isABBA = true;
                             }
                         }
                     }
@@ -44,12 +44,12 @@ namespace aoc2016
                 previousChar = IP[i];
             }
 
-            return hasTLS;
+            return isABBA;
         }
         private static bool IsSSL(string IP)
         {
             bool isWithinBrackets = false;
-            bool hasSSL = false;
+            bool hasABA = false;
             char previousChar = ' ';
             List<string> possibleSupernetABAs = new List<string>();
             List<string> possibleHypernetABAs = new List<string>();
@@ -93,25 +93,25 @@ namespace aoc2016
                     {
                         if (possibleHypernetABAs[i][1] == possibleSupernetABAs[j][2] && possibleHypernetABAs[i][2] == possibleSupernetABAs[j][1])
                         {
-                            hasSSL = true;
+                            hasABA = true;
                         }
                     }
                 }
             }
 
-            return hasSSL;
+            return hasABA;
         }
         public static void Main(string[] args)
         {
             string[] lines = System.IO.File.ReadAllLines(@"C:\home\projects\aoc-2016\day7\input.txt");
-            int abbaCount = 0;
+            int tlsCount = 0;
             int sslCount = 0;
 
             foreach (string line in lines)
             {
-                if (IsABBA(line))
+                if (IsTLS(line))
                 {
-                    abbaCount++;
+                    tlsCount++;
                 }
                 if (IsSSL(line))
                 {
@@ -119,7 +119,7 @@ namespace aoc2016
                 }
             }
 
-            Console.WriteLine(abbaCount);
+            Console.WriteLine(tlsCount);
             Console.WriteLine(sslCount);
         }
     }
