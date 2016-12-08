@@ -44,7 +44,7 @@ namespace aoc2016
 
             return array;
         }
-        private static int GetNonZeroArrayCount(int[,] array)
+        private static int GetNonZeroArrayElementCount(int[,] array)
         {
             int numberOfRows = array.GetLength(0);
             int numberOfColumns = array.GetLength(1);
@@ -62,7 +62,6 @@ namespace aoc2016
             }
 
             return count;
-            
         }
         public static void Main(string[] args)
         {
@@ -93,7 +92,7 @@ namespace aoc2016
                 }
             }
 
-            int pixelCount = GetNonZeroArrayCount(screen);
+            int pixelCount = GetNonZeroArrayElementCount(screen);
 
             Console.WriteLine(pixelCount);
         }
