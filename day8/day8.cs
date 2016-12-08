@@ -4,9 +4,9 @@ namespace aoc2016
 {
     public class day8
     {
-        private static int[,] CreateScreen(int height, int width)
+        private static int[,] CreateScreen(int numberOfRows, int numberOfColumns)
         {
-            return new int[height, width];
+            return new int[numberOfRows, numberOfColumns];
         }
         private static int[,] TurnOnPixels(int[,] screen, int row, int column)
         {
@@ -20,11 +20,34 @@ namespace aoc2016
 
             return screen;
         }
+        private static int[,] CopyScreen(int[,] screen){
+			int[,] array = new int[screen.GetLength(0),screen.GetLength(1)];
+
+			for (int i = 0; i < screen.GetLength(0); i++) {
+				for(int j = 0; j < screen.GetLength(1); j++){
+					array [i, j] = screen[i, j];
+				}
+			}
+			return array;
+		}
+        public static void Display(int[,] array)
+        {
+            // Loop over 2D int array and display it.
+            for (int i = 0; i <= array.GetUpperBound(0); i++)
+            {
+                for (int x = 0; x <= array.GetUpperBound(1); x++)
+                {
+                Console.Write(array[i, x]);
+                Console.Write(" ");
+                }
+                Console.WriteLine();
+            }
+        }
         private static int[,] RotateRowRight(int[,] screen, int row, int rotateValue)
         {
             int max = screen.GetLength(1);
-            int[,] array = screen;
-
+            int[,] array = CopyScreen(screen);
+            
             for (var i = 0; i < max; i++)
             {
                 array[row, (i + rotateValue) % max] = screen[row, i];
@@ -35,7 +58,7 @@ namespace aoc2016
         private static int[,] RotateColumnDown(int[,] screen, int column, int rotateValue)
         {
             int max = screen.GetLength(0);
-            int[,] array = screen;
+            int[,] array = CopyScreen(screen);
 
             for (var i = 0; i < max; i++)
             {
@@ -95,6 +118,7 @@ namespace aoc2016
             int pixelCount = GetNonZeroArrayElementCount(screen);
 
             Console.WriteLine(pixelCount);
+            Display(screen);
         }
     }
 }
