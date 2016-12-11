@@ -4,28 +4,13 @@ namespace aoc2016
 {
     public class day9
     {
-        private static int GetMarkerCloseIndex(string data, int index)
-        {
-            int closeIndex = 0;
-
-            for (var i = index; i < data.Length - index; i++)
-            {
-                if (data[i] == ')')
-                {
-                    closeIndex = i;
-                    break;
-                }
-            }
-
-            return closeIndex;
-        }
-        private static string ApplyMarker(string data, int copyLength, int copyMultiplier, int markerCloseIndex)
+        private static string ApplyMarker(string data, int copyLength, int copyMultiplier, int index, int intMarkerLength)
         {
             string extendedData = "";
 
             for (var i = 0; i < copyMultiplier; i++)
             {
-                extendedData += data.Substring(markerCloseIndex+1, copyLength);
+                extendedData += data.Substring(index + intMarkerLength, copyLength);
             }
 
             return extendedData;
@@ -38,36 +23,14 @@ namespace aoc2016
             {
                 if (data[i] == '(')
                 {
-                    int markerCloseIndex = GetMarkerCloseIndex(data, i);
+                    int copyLength = Convert.ToInt32(data.Substring(i + 1, data.IndexOf('x', i) - i - 1));
+                    int copyMultiplier = Convert.ToInt32(data.Substring(data.IndexOf('x', i) + 1, data.IndexOf(')', i) - data.IndexOf('x', i) - 1));
+                    
+                    int markerLength = copyMultiplier.ToString().Length + copyLength.ToString().Length + 3;
+                    
+                    unwrappedString += ApplyMarker(data, copyLength, copyMultiplier, i, markerLength);
 
-                    if (markerCloseIndex != 0)
-                    {
-                        string marker = data.Substring(i + 1, markerCloseIndex - i - 1);
-
-                        int copyLength = Convert.ToInt32(marker.Split('x')[0]);
-                        int copyMultiplier = Convert.ToInt32(marker.Split('x')[1]);
-
-                        string tempString = ApplyMarker(data, copyLength, copyMultiplier, markerCloseIndex);
-
-                        for (var j = 0; j < tempString.Length; j++)
-                        {
-                            if (tempString[j] == '(')
-                            {
-                                unwrappedString += Unwrap(tempString);
-                            }
-                            else
-                            {
-                                unwrappedString += tempString[j];
-                            }
-                            Console.WriteLine(unwrappedString);
-                        }
-
-                        i = markerCloseIndex + copyLength;
-                    }
-                }
-                else
-                {
-                    unwrappedString += data[i];
+                    i += markerLength + copyLength - 1;
                 }
             }
 
