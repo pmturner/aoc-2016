@@ -50,7 +50,7 @@ namespace aoc2016
                     
                     string sectionToCopy = data.Substring(i + markerLength, copyLength);
 
-                    total += Part2(sectionToCopy)*copyMultiplier;
+                    total += Convert.ToInt64((Part2(sectionToCopy)*copyMultiplier));
                     i += markerLength + copyLength - 1;
                 }
                 else
