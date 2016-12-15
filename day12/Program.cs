@@ -53,7 +53,6 @@ namespace aoc2016
                 {
                     case "cpy":
                         int copyValue = GetRegisterOrIntegerValue(registers, instructionBreak[1]);
-                        // Console.WriteLine(copyValue);
                         registerIndex = GetRegisterIndex(instructionBreak[2]);
                         registers[registerIndex] = copyValue;
                         break;
